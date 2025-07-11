@@ -34,6 +34,12 @@ Rationale
     - If user wants to `skip-dead-queue`, that couldn't be done with lb/nack
     - We loose goose-specific data such as `:died-at`, `:last-retried-at`
 
+### JDBC
+
+- Reuses `scheduled_jobs` table for retrying jobs with back-off strategy
+- Dead jobs stored in dedicated `dead_jobs` table with full exception information
+- Manual retry handling maintains full job metadata and state consistency
+
 Avoided Designs
 ---------
 

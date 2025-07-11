@@ -37,6 +37,11 @@ Rationale
 - Using a redis list because enqueue-dequeue operations are O(1)
 - Using `BRPOPLPUSH` because of reliability
 
+### JDBC
+- Uses database tables with indexed priority and `created_at` columns for efficient dequeue operations
+- Employs `SELECT FOR UPDATE` with priority ordering to ensure reliable job acquisition
+- Transactions ensure atomic enqueue/dequeue operations preventing job loss
+
 Avoided Designs
 ---------
 - During execution of a job, `resolve` isn't memoized because hot-reloading becomes a pain

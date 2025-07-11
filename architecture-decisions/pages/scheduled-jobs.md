@@ -28,6 +28,11 @@ Rationale
 - Moving a job from sorted set to execution queue is reliable
   - Goose performs this inside a transaction. In Sidekiq open source version, ZREM & LPUSH are 2 separate calls to Redis
 
+### JDBC
+- Uses separate scheduled_jobs table with scheduled_at column indexed for efficient time-based queries
+- Scheduler periodically moves due jobs from scheduled_jobs to enqueued_jobs tables atomically
+- Jobs moved to front of execution queue (higher priority) to maintain scheduling SLAs
+
 Avoided Designs
 ---------
 

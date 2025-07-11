@@ -26,6 +26,11 @@ Rationale
   - [Telegraf](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/rabbitmq)
   - [Prometheus](https://www.rabbitmq.com/prometheus.html)
 
+### JDBC
+
+- Database-based metrics can be collected via SQL queries for queue sizes and job counts
+- No broker-specific metrics runner implemented yet - manual metrics collection required
+
 Avoided Designs
 ---------
 

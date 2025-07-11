@@ -22,7 +22,7 @@ We welcome feedback from current and new users, especially if you’d like to re
 Features
 ---------
 - *Reliable* - Code/Hardware/Network failure won't cause data loss
-- Native support for RabbitMQ & Redis queues
+- Native support for RabbitMQ, Redis, and JDBC queues
 - Pluggable [Message Broker](https://github.com/nilenso/goose/wiki/Guide-to-Message-Broker-Integration) & [Metrics Backend](https://github.com/nilenso/goose/wiki/Guide-to-Custom-Metrics-Backend)
 - [Jobs management Console](https://github.com/nilenso/goose/wiki/Console)
 - [Scheduled Jobs](https://github.com/nilenso/goose/wiki/Scheduled-Jobs)

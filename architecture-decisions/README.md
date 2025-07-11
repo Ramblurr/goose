@@ -36,3 +36,5 @@ Index
 1. [Specs](https://github.com/nilenso/goose/blob/main/architecture-decisions/pages/specs.md)
 1. [Logging](https://github.com/nilenso/goose/blob/main/architecture-decisions/pages/logging.md)
 1. [Wiki / Documentation](https://github.com/nilenso/goose/blob/main/architecture-decisions/pages/wiki.md)
+1. [JDBC Schema Management](https://github.com/nilenso/goose/blob/main/architecture-decisions/pages/jdbc-schema-management.md)
+1. [JDBC Connection Pooling](https://github.com/nilenso/goose/blob/main/architecture-decisions/pages/jdbc-connection-pooling.md)

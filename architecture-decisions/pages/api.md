@@ -10,3 +10,9 @@ Rationale
 - Shovel won't help with moving jobs from & there's no concept of transaction, so data-loss is a probability
 - No list-all-queues for RMQ. Anything that needs to be done over an API can be done via management portal.
 - When building for RMQ API, broker initialization gets unnecessary complications. Hence, it is avoided
+
+### JDBC
+
+- Full API implementation possible due to database queryability
+- All job management operations supported via SQL queries
+- Transactional job operations ensure data consistency during API calls

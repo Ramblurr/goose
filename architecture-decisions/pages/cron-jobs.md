@@ -30,3 +30,9 @@ While "Periodic Jobs" is technically a more accurate term for jobs that execute 
 - Unique registration can be done using `noxdafox/rabbitmq-message-deduplication` plugin
   - However, deleting a job isn't possible
 - If RMQ had a way to set/get data, that would make implementing cron jobs possible
+
+### JDBC
+
+- Uses dedicated `cron_jobs` table to store job descriptions and scheduling metadata
+- Tracks `last_scheduled_at` timestamp to prevent duplicate scheduling
+- Supports all cron expression features through database persistence
