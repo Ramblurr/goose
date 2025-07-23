@@ -352,6 +352,21 @@
                 (finally
                   (worker/stop worker))))))))))
 
+(deftest ^:integration worker-id-test
+  (testing "JDBC workers have worker IDs"
+    (with-all-databases
+      (fn [_db-type broker]
+        (let [worker (b/start-worker broker {:threads 1
+                                             :queue "test-queue"
+                                             :auto-scheduler? false})]
+          (try
+            ;; Check that worker has an ID in its state
+            (let [worker-id (-> worker :state deref :worker-id)]
+              (is (some? worker-id) "Worker should have an ID"))
+
+            (finally
+              (worker/stop worker))))))))
+
 (deftest ^:integration batch-operations-test
   (testing "Batch operations across all databases"
     (with-all-databases

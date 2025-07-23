@@ -13,6 +13,11 @@
    [java.sql Connection]
    [java.util.concurrent TimeUnit]))
 
+(defn- generate-worker-id
+  "Generates a unique worker ID"
+  []
+  (str (random-uuid)))
+
 (defn- internal-stop
   "Stops the worker internal components."
   [worker-state]
@@ -79,7 +84,8 @@
          graceful-shutdown-sec 30}
     :as opts}]
 
-  (let [pool-opts {:cpus threads
+  (let [worker-id (generate-worker-id)
+        pool-opts {:cpus threads
                    :queue-length 1000
                    :thread-name "goose-jdbc-worker"}
         thread-pool (cp/threadpool threads pool-opts)
@@ -87,12 +93,14 @@
         call (chain-middlewares middlewares)
         worker-state (atom {:thread-pool thread-pool
                             :data-source data-source
-                            :ready-queue ready-queue})
+                            :ready-queue ready-queue
+                            :worker-id worker-id})
 
         worker-opts (assoc opts
                            :thread-pool thread-pool
                            :ready-queue ready-queue
-                           :call call)
+                           :call call
+                           :worker-id worker-id)
 
         consumer-futures (doall
                           (repeatedly threads
@@ -100,10 +108,10 @@
                                                   (poll-and-execute-jobs worker-opts))))
 
         scheduler-future (when auto-scheduler?
-                           (log/info "Starting scheduled job poller")
+                           (log/info "Starting scheduled job poller for worker " worker-id)
                            (schedule-jobs-poller worker-opts))]
 
-    (log/info (str "Started JDBC worker with " threads " threads processing queue: " ready-queue))
+    (log/info (str "Started JDBC worker with ID: " worker-id " with " threads " threads processing queue: " ready-queue))
 
     (vary-meta
      {:state worker-state
